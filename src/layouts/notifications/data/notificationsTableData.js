@@ -31,22 +31,6 @@ export default function data() {
   const rowsList = [];
 
   const getSolicitacoesData = async () => {
-    const myData = {
-      data: {
-        type: "solicitacao",
-        attributes: {},
-        relationships: {
-          roles: {
-            data: [
-              {
-                type: "roles",
-                id: "1",
-              },
-            ],
-          },
-        },
-      },
-    };
     const response = await HttpService.get("solicitacao");
     setSolicitacoes(() => ({response}));
   };

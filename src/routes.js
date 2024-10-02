@@ -54,14 +54,6 @@ const routes = [
   },
   {
     type: "collapse",
-    name: "Relatórios",
-    key: "billing",
-    icon: <Icon fontSize="small">receipt_long</Icon>,
-    route: "/billing",
-    component: <Billing />,
-  },
-  {
-    type: "collapse",
     name: "Notificações",
     key: "notificacoes",
     icon: <Icon fontSize="small">notifications</Icon>,
