@@ -40,7 +40,6 @@ function Login() {
   const addUserHandler = (newUser) => setUser(newUser);
 
   const changeHandler = (e) => {
-    console.log(e.target.value);
     setInputs({
       ...inputs,
       [e.target.name]: e.target.value,
