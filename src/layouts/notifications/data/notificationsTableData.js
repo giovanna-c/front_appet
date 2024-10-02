@@ -31,7 +31,23 @@ export default function data() {
   const rowsList = [];
 
   const getSolicitacoesData = async () => {
-    const response = await HttpService.get("solicitacao");
+    const myData = {
+      data: {
+        type: "users",
+        attributes: { "id_ong": ong},
+        relationships: {
+          roles: {
+            data: [
+              {
+                type: "roles",
+                id: "1",
+              },
+            ],
+          },
+        },
+      },
+    };
+    const response = await HttpService.post( "solicitacao/filter", myData);
     setSolicitacoes(() => ({response}));
   };
   
