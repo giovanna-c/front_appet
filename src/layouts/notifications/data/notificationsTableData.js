@@ -3,6 +3,8 @@ import MDTypography from "components/MDTypography";
 import Icon from "@mui/material/Icon";
 import Alert from '@mui/material/Alert';
 import CheckIcon from '@mui/icons-material/Check';
+import HttpService from "../../../services/htttp.service";
+import { useState, useEffect } from "react";
 
 export default function data() {
   const Author = ({ name, email }) => (
@@ -25,6 +27,60 @@ export default function data() {
     </MDBox>
   );
 
+  const [solicitacoes, setSolicitacoes] = useState({ solicitacoes: [] });
+  const rowsList = [];
+
+  const getSolicitacoesData = async () => {
+    const myData = {
+      data: {
+        type: "solicitacao",
+        attributes: {},
+        relationships: {
+          roles: {
+            data: [
+              {
+                type: "roles",
+                id: "1",
+              },
+            ],
+          },
+        },
+      },
+    };
+    const response = await HttpService.get("solicitacao");
+    setSolicitacoes(() => ({response}));
+  };
+  
+  useEffect(() => {
+    getSolicitacoesData();
+  }, []);
+
+  for (const key in solicitacoes.response) {
+    rowsList.push({
+      solicitante: <Author name={solicitacoes.response[key].usuario} />,
+      animal: <Job title={solicitacoes.response[key].animal} />,
+      status: (
+        <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
+          <Alert>{solicitacoes.response[key].status}</Alert>
+        </MDTypography>
+      ),
+      acao: (
+        <MDBox>
+            <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium" mr={2}>
+              <Icon fontSize="small" > forum </Icon>
+            </MDTypography>
+            <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium" mr={2}>
+              <Icon fontSize="small" > email </Icon>
+            </MDTypography>
+            <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
+              <Icon fontSize="small" > contact_phone </Icon>
+            </MDTypography>
+        </MDBox>
+      ),
+    
+    });
+  }
+
   return {
     columns: [
       { Header: "solicitante", accessor: "solicitante", width: "25%", align: "left" },
@@ -33,117 +89,6 @@ export default function data() {
       { Header: "ação", accessor: "acao", align: "center" },
     ],
 
-    rows: [
-      {
-        solicitante: <Author name="José Carlos" />,
-        animal: <Job title="Spyke" />,
-        status: (
-          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            <Alert severity="warning">Pendente</Alert>
-          </MDTypography>
-        ),
-        acao: (
-          <MDBox>
-              <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium" mr={2}>
-                <Icon fontSize="small" > forum </Icon>
-              </MDTypography>
-              <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium" mr={2}>
-                <Icon fontSize="small" > email </Icon>
-              </MDTypography>
-              <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-                <Icon fontSize="small" > contact_phone </Icon>
-              </MDTypography>
-          </MDBox>
-        ),
-      },
-      {
-        solicitante: <Author name="Maria dos Santos" />,
-        animal: <Job title="ted" />,
-        status: (
-          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            <Alert severity="warning">Pendente</Alert>
-          </MDTypography>
-        ),
-        acao: (
-          <MDBox>
-              <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium" mr={2}>
-                <Icon fontSize="small" > forum </Icon>
-              </MDTypography>
-              <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium" mr={2}>
-                <Icon fontSize="small" > email </Icon>
-              </MDTypography>
-              <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-                <Icon fontSize="small" > contact_phone </Icon>
-              </MDTypography>
-          </MDBox>
-        ),
-      },
-      {
-        solicitante: <Author name="Luiza da Silva" />,
-        animal: <Job title="Spyke" />,
-        status: (
-          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            <Alert icon={<CheckIcon fontSize="inherit" />} severity="error">Reprovada</Alert>
-          </MDTypography>
-        ),
-        acao: (
-          <MDBox>
-              <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium" mr={2}>
-                <Icon fontSize="small" > forum </Icon>
-              </MDTypography>
-              <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium" mr={2}>
-                <Icon fontSize="small" > email </Icon>
-              </MDTypography>
-              <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-                <Icon fontSize="small" > contact_phone </Icon>
-              </MDTypography>
-          </MDBox>
-        ),
-      },
-      {
-        solicitante: <Author name="Miguel de Jesus" />,
-        animal: <Job title="Tótó" />,
-        status: (
-          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            <Alert severity="success">Aprovada</Alert>
-          </MDTypography>
-        ),
-        acao: (
-          <MDBox>
-              <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium" mr={2}>
-                <Icon fontSize="small" > forum </Icon>
-              </MDTypography>
-              <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium" mr={2}>
-                <Icon fontSize="small" > email </Icon>
-              </MDTypography>
-              <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-                <Icon fontSize="small" > contact_phone </Icon>
-              </MDTypography>
-          </MDBox>
-        ),
-      },
-      {
-        solicitante: <Author name="Luana maria" />,
-        animal: <Job title="Nino" />,
-        status: (
-          <MDTypography component="a" href="#" variant="caption" color="text">
-            <Alert  severity="info">Aguardando</Alert>
-          </MDTypography>
-        ),
-        acao: (
-          <MDBox>
-              <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium" mr={2}>
-                <Icon fontSize="small" > forum </Icon>
-              </MDTypography>
-              <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium" mr={2}>
-                <Icon fontSize="small" > email </Icon>
-              </MDTypography>
-              <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-                <Icon fontSize="small" > contact_phone </Icon>
-              </MDTypography>
-          </MDBox>
-        ),
-      },
-    ],
+    rows: rowsList,
   };
 }

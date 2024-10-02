@@ -1,18 +1,3 @@
-/**
-=========================================================
-* Material Dashboard 2 React - v2.1.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-react
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 import { useState, useEffect } from "react";
 // react-router components
 import { Link } from "react-router-dom";
@@ -96,14 +81,16 @@ function Header({ children }) {
         }}
       >
         <Grid container spacing={3} alignItems="center">
-          <Grid item xs={10} md={6} lg={2} sx={{ ml: "auto" }}>
-            <MDButton variant="outlined" color="info" size="small">
-            <Icon fontSize="small"> search </Icon>
-              Buscar animal
-            </MDButton>
+        <Grid item xs={10} md={6} lg={2} sx={{ ml: "auto" }}>
+            <Link to="/busca-animal">
+              <MDButton variant="outlined" color="info" size="small">
+              <Icon fontSize="small"> search </Icon>
+                Buscar animal
+              </MDButton>
+            </Link>
           </Grid>
           <Grid item xs={12} md={6} lg={2}>
-            <Link to="/registers">
+            <Link to="/cadastros">
               <MDButton color="dark" size="small">
                 Cadastrar animal
               </MDButton>
